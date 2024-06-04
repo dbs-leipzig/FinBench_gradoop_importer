@@ -1,3 +1,5 @@
+package org.gradoop;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
@@ -19,7 +21,7 @@ public class GraphBuilder {
     /**
      * Main program to read in FinBench graph. Arguments included input, output and data sink type
      * Default data sink is CSV unless set differently
-     * {@code /path/to/flink run -c org.gradoop.GraphBuilder path/to/finbenchh-importer.jar -i hdfs:///finbench-dataset -o hdfs:///output -indexed}
+     * {@code /path/to/flink run -c org.gradoop.org.gradoop.GraphBuilder path/to/finbenchh-importer.jar -i hdfs:///finbench-dataset -o hdfs:///output -indexed}
      * @param args program arguments
      * @throws Exception in case of error
      */
