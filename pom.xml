@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.gradoop</groupId>
-    <artifactId>TemporalGraph</artifactId>
+    <artifactId>FinBenchImporter</artifactId>
     <version>1.0</version>
 
     <properties>
