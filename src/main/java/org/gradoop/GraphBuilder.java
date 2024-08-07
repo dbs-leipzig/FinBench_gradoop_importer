@@ -11,6 +11,8 @@ import org.gradoop.datasource.DataSourceExtractor;
 import org.gradoop.flink.util.GradoopFlinkConfig;
 import org.gradoop.temporal.io.impl.csv.TemporalCSVDataSink;
 import org.gradoop.temporal.io.impl.csv.indexed.TemporalIndexedCSVDataSink;
+import org.gradoop.temporal.io.impl.parquet.plain.TemporalParquetDataSink;
+import org.gradoop.temporal.io.impl.parquet.protobuf.TemporalParquetProtobufDataSink;
 import org.gradoop.temporal.model.impl.TemporalGraph;
 import org.gradoop.temporal.model.impl.pojo.TemporalEdge;
 import org.gradoop.temporal.model.impl.pojo.TemporalVertex;
@@ -72,10 +74,10 @@ public class GraphBuilder {
             tg.writeTo(new TemporalIndexedCSVDataSink(OUTPUT_PATH, config), true);
             env.execute("Import Finbench Indexed CSV in Gradoop: " + INPUT_PATH.substring(INPUT_PATH.lastIndexOf('/') + 1) + ". P:" + env.getParallelism());
         } else if (parsedOptions.hasOption(OPTION_PARQUET)) {
-            tg.writeTo(new TemporalIndexedCSVDataSink(OUTPUT_PATH, config), true);
+            tg.writeTo(new TemporalParquetDataSink(OUTPUT_PATH, config), true);
             env.execute("Import Finbench Parquet in Gradoop: " + INPUT_PATH.substring(INPUT_PATH.lastIndexOf('/') + 1) + ". P:" + env.getParallelism());
         } else if (parsedOptions.hasOption(OPTION_PROTOBUF)) {
-            tg.writeTo(new TemporalIndexedCSVDataSink(OUTPUT_PATH, config), true);
+            tg.writeTo(new TemporalParquetProtobufDataSink(OUTPUT_PATH, config), true);
             env.execute("Import Finbench Protobuf CSV in Gradoop: " + INPUT_PATH.substring(INPUT_PATH.lastIndexOf('/') + 1) + ". P:" + env.getParallelism());
         } else {
             tg.writeTo(new TemporalCSVDataSink(OUTPUT_PATH, config), true);

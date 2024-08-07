@@ -7,21 +7,26 @@
     <groupId>org.gradoop</groupId>
     <artifactId>FinBenchImporter</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dep.flink.version>1.9.3</dep.flink.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dep.gradoop.version>0.7.0-SNAPSHOT</dep.gradoop.version>
         <project.build.targetJdk>1.8</project.build.targetJdk>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.maven.version>3.0.0</project.maven.version>
+
+        <dep.gradoop.version>0.7.0-SNAPSHOT</dep.gradoop.version>
+        <dep.flink.version>1.9.3</dep.flink.version>
+        <dep.commons-cli.version>1.4</dep.commons-cli.version>
+        <dep.parquet.version>1.12.0</dep.parquet.version>
+        <dep.hadoop.version>3.3.5</dep.hadoop.version>
+
         <plugin.maven-compiler.version>3.8.0</plugin.maven-compiler.version>
+        <plugin.maven-checkstyle.version>3.0.0</plugin.maven-checkstyle.version>
         <plugin.maven-shade.version>3.2.1</plugin.maven-shade.version>
-        <dep.log4j.version>1.2.17</dep.log4j.version>
-        <opencsv.version>5.8</opencsv.version>
-        <lombok.version>1.18.8</lombok.version>
-        <log4j.properties>log4j.properties</log4j.properties>
+        <plugin.maven-spotbugs.version>3.1.11</plugin.maven-spotbugs.version>
+        <plugin.maven-surefire.version>2.22.1</plugin.maven-surefire.version>
+        <plugin.maven-jar.version>3.1.1</plugin.maven-jar.version>
     </properties>
 
     <build>
@@ -29,7 +34,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${plugin.maven-compiler.version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -38,55 +43,49 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${plugin.maven-shade.version}</version>
                 <executions>
                     <execution>
-                        <id>flink-jar</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <minimizeJar>false</minimizeJar>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.gradoop:*</include>
-                                    <include>org.apache.flink:flink_gelly_2.11</include>
-                                    <include>org.apache.flink:flink-shaded-hadoop2</include>
-                                    <include>commons-logging:commons-logging</include>
-                                    <include>org.apache.hbase:hbase-common</include>
-                                    <include>org.gradoop.gdl:gradoop-gdl</include>
-                                    <include>org.antlr:antlr4-runtime</include>
-                                    <include>me.lemire.integercompression:*</include>
-                                    <include>org.opencypher:*</include>
-                                    <include>com.google.guava:*</include>
-                                    <include>com.fasterxml.jackson.core:*</include>
-                                    <include>org.apache.flink:flink-table_2.11</include>
-                                    <include>org.parboiled:parboiled-scala_2.11</include>
-                                    <include>com.lihaoyi:ujson_2.11</include>
-                                    <include>com.lihaoyi:upickle_2.11</include>
-                                    <include>org.typelevel:cats-kernel_2.11</include>
-                                    <include>org.typelevel:cats-core_2.11</include>
-                                    <include>org.atnos:eff_2.11</include>
-                                    <include>org.parboiled:*</include>
-                                </includes>
-                            </artifactSet>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <minimizeJar>true</minimizeJar>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.apache.parquet:parquet-hadoop</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.apache.parquet:parquet-column</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.apache.parquet:parquet-encoding</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
                             <relocations>
                                 <relocation>
-                                    <pattern>com.fasterxml.jackson</pattern>
-                                    <shadedPattern>org.gradoop.shaded.com.fasterxml.jackson</shadedPattern>
+                                    <pattern>org.apache.commons.cli</pattern>
+                                    <shadedPattern>org.gradoop.examples.thirdparty.commons_cli</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>minimal</shadedClassifierName>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <program-class>org.org.gradoop.gradoop.GraphBuilder</program-class>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
@@ -106,10 +105,12 @@
             <version>${dep.flink.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.15</version>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_2.11</artifactId>
+            <version>${dep.flink.version}</version>
+            <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.gradoop</groupId>
@@ -123,13 +124,22 @@
         </dependency>
         <dependency>
             <groupId>org.gradoop</groupId>
-            <artifactId>gradoop-data-integration</artifactId>
-            <version>${dep.gradoop.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.gradoop</groupId>
             <artifactId>gradoop-temporal</artifactId>
             <version>${dep.gradoop.version}</version>
+        </dependency>
+
+        <!-- Parquet -->
+        <dependency>
+            <groupId>org.apache.parquet</groupId>
+            <artifactId>parquet-protobuf</artifactId>
+            <version>${dep.parquet.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${dep.hadoop.version}</version>
         </dependency>
 
         <!-- Additional Dependencies -->
@@ -137,22 +147,6 @@
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.5</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
