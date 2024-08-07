@@ -39,8 +39,8 @@ public class DataSourceExtractor {
     private static final String PERSON_OWN_ACCOUNT_PATH = "/PersonOwnAccount.csv";
 
 
-    private EdgeReader edgeReader;
-    private VertexReader entitiesReader;
+    EdgeReader edgeReader;
+    VertexReader entitiesReader;
     public DataSourceExtractor(ExecutionEnvironment env){
         this.edgeReader = new EdgeReader(env);
         this.entitiesReader = new VertexReader(env);
@@ -59,6 +59,7 @@ public class DataSourceExtractor {
         DataSet<TemporalVertex> mediumVertices = entitiesReader.readingMedium(getPath(inputDirectory, MEDIUM_PATH));
         DataSet<TemporalVertex> personVertices = entitiesReader.readingPerson(getPath(inputDirectory, PERSON_PATH));
         DataSet<TemporalVertex> loanVertices = entitiesReader.readingLoan(getPath(inputDirectory, LOAN_PATH));
+
 
         DataSet<TemporalEdge> edges = edgeReader.readingRepay(getPath(inputDirectory, ACCOUNT_REPAY_LOAN_PATH), accountVertices, loanVertices)
                 .union(edgeReader.readingTransfer(getPath(inputDirectory, ACCOUNT_TRANSFER_ACCOUNT_PATH), accountVertices, accountVertices))
