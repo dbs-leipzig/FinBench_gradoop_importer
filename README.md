@@ -1,7 +1,10 @@
+[![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)](https://www.apache.org/licenses/LICENSE-2.0)
 # Gradoop: FinBench Dataset Importer
 
 This is an supporting application for [Gradoop](https://github.com/dbs-leipzig/gradoop), allows importing FinBench datasets as TPGM in Gradoop for further graph analyzing and processing.
 This project is built using Apache Flink `1.9.3` and Gradoop `0.7.0-SNAPSHOT`
+
+> This project was developed during a Bachelor's thesis at Leipzig University.
 
 # Requirements:
 - Maven.
@@ -15,25 +18,26 @@ Bulding should be done using Maven. Simply run this in the project directory:
 mvn package
 ```
 
-This will generate the JAR package `FinBenchImporter-1.0-minimal.jar` inside target folder.
+This will generate the JAR package `FinBenchGradoopImporter-1.0.jar` inside `target` folder.
 
 ## Execution
 
-This application can be executed using a Flink client. Run
+This application can be executed using Apache Flink. An example Command is:
 ```
-flink run -c org.gradoop.FinbenchImporter <path/to/jar/package> org.gradoop.FinbenchImporter
+/bin/flink run -p 128 -c org.gradoop.importer.finbench.FinBenchImporter FinBenchGradoopImporter-1.0.jar -i 
+hdfs:///finbench/sf10 -o hdfs:///finbench/gradoop-parquet-protobuf -f protobuf
 ```
 
 
 ### Configuration
 
-|Parameter| Argument | Description | Required |
-|:-------:|----------|-------------|-------------|
-| `-i`    | INPUT    | The input path to a directory containing all Finbench's csv files  | Yes|
-| `-o`    | OUTPUT   | The output path for graph to be written out | Yes|
-| `-f1`    | (none)   | Graph output in IndexedCSV format |No|
-| `-f2`    | (none)   | Graph output in Parquet format |No|
-| `-f3`    | (none)   | Graph output in Protobuf format |No|
+|Parameter| Argument                                     | Description                                                         | Required |
+|:-------:|----------------------------------------------|---------------------------------------------------------------------|----------|
+|  `-i`   | `/path/to/finbench`                          | The input path to a directory containing all Finbench's csv files.  | Yes      |
+|  `-o`   | `/path/out`                                  | The output path for the Gradoop graph to be written.                | Yes      |
+|  `-f`   | `csv` or `indexed` or `parquet` or `protobuf` | The output format. CSV is default, parquet or protobuf are fastest. | Yes      |
 
-You should pick at most one from `-f1`, `-f2`, `-f3` for the ouput graph data format. If none is selected, the default export format is CSV.
+### Disclaimer
 
+Apache&reg;, Apache Accumulo&reg;, Apache Flink, Flink&reg; are either registered trademarks or trademarks of the Apache Software Foundation
+in the United States and/or other countries.

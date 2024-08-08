@@ -5,21 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.gradoop</groupId>
-    <artifactId>FinBenchImporter</artifactId>
+    <artifactId>FinBenchGradoopImporter</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
+    <description>An importer application to read FinBench dataset and output a valid Gradoop
+        TPGM graph.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.targetJdk>1.8</project.build.targetJdk>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.maven.version>3.0.0</project.maven.version>
 
         <dep.gradoop.version>0.7.0-SNAPSHOT</dep.gradoop.version>
         <dep.flink.version>1.9.3</dep.flink.version>
-        <dep.commons-cli.version>1.4</dep.commons-cli.version>
+        <dep.commons-cli.version>1.3.1</dep.commons-cli.version>
         <dep.parquet.version>1.12.0</dep.parquet.version>
         <dep.hadoop.version>3.3.5</dep.hadoop.version>
+        <dep.junit.version>4.13.1</dep.junit.version>
 
         <plugin.maven-compiler.version>3.8.0</plugin.maven-compiler.version>
         <plugin.maven-checkstyle.version>3.0.0</plugin.maven-checkstyle.version>
@@ -29,6 +31,19 @@
         <plugin.maven-jar.version>3.1.1</plugin.maven-jar.version>
     </properties>
 
+    <developers>
+        <developer>
+            <id>mnhat64</id>
+            <name>Minh Nhat Phan</name>
+            <organization>University of Leipzig</organization>
+        </developer>
+        <developer>
+            <id>ChrizZz110</id>
+            <name>Christopher Rost</name>
+            <organization>University of Leipzig</organization>
+        </developer>
+    </developers>
+
     <build>
         <plugins>
             <plugin>
@@ -36,8 +51,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${plugin.maven-compiler.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${project.build.targetJdk}</source>
+                    <target>${project.build.targetJdk}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -146,13 +161,13 @@
         <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
-            <version>1.3.1</version>
+            <version>${dep.commons-cli.version}</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>${dep.junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

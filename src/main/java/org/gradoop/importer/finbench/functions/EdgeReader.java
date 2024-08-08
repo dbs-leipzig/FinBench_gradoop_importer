@@ -1,4 +1,19 @@
-package org.gradoop.edge;
+/*
+ * Copyright © 2014 - 2024 Leipzig University (Database Research Group)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.gradoop.importer.finbench.functions;
 
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -15,7 +30,7 @@ import org.gradoop.temporal.model.impl.pojo.TemporalVertex;
 
 import java.io.Serializable;
 
-import static org.gradoop.util.HelperFunction.*;
+import static org.gradoop.importer.finbench.functions.HelperFunction.*;
 
 /**
  * The EdgeReader class is responsible for reading CSV files containing edge data and mapping them
@@ -158,7 +173,7 @@ public class EdgeReader implements Serializable {
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
 
-        DataSet<TemporalEdge> edges = csvEdgeData
+        return csvEdgeData
                 .join(sourceIdPairs)
                 .where(0)
                 .equalTo(0)
@@ -171,7 +186,6 @@ public class EdgeReader implements Serializable {
                 .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
                 .map(data -> edgeMapper.mapDeposit(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
-        return edges;
     }
 
     /**
@@ -193,7 +207,7 @@ public class EdgeReader implements Serializable {
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
 
-        DataSet<TemporalEdge> edges = csvEdgeData
+        return csvEdgeData
                 .join(sourceIdPairs)
                 .where(0)
                 .equalTo(0)
@@ -206,7 +220,6 @@ public class EdgeReader implements Serializable {
                 .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
                 .map(data -> edgeMapper.mapRepay(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
-        return edges;
     }
 
     /**
@@ -229,7 +242,7 @@ public class EdgeReader implements Serializable {
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
 
-        DataSet<TemporalEdge> edges = csvEdgeData
+        return csvEdgeData
                 .join(sourceIdPairs)
                 .where(0)
                 .equalTo(0)
@@ -242,7 +255,6 @@ public class EdgeReader implements Serializable {
                 .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
                 .map(data -> edgeMapper.mapGuarantee(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
-        return edges;
     }
 
     /**
