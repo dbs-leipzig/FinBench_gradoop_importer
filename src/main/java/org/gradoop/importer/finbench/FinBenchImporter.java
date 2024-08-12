@@ -28,16 +28,14 @@ import org.gradoop.temporal.io.impl.parquet.protobuf.TemporalParquetProtobufData
 import org.gradoop.temporal.model.impl.TemporalGraph;
 import org.gradoop.temporal.util.TemporalGradoopConfig;
 
+/**
+ * Main program to read in FinBench graph. Arguments included input, output and data sink type.
+ * Example execution:
+ * {@code /bin/flink -p 128 -c org.gradoop.importer.finbench.FinBenchImporter FinBenchGradoopImporter-1.0
+ * .jar -i
+ * hdfs:///finbench/sf10 -o hdfs:///finbench/gradoop-parquet-protobuf -f protobuf}
+ */
 public class FinBenchImporter {
-
-    /**
-     * Main program to read in FinBench graph. Arguments included input, output and data sink type
-     * Default data sink is CSV unless set differently
-     * {@code /path/to/flink run -c org.gradoop.org.gradoop.importer.finbench.GraphBuilder path/to/finbenchh-importer.jar -i hdfs:///finbench-dataset -o hdfs:///output -indexed}
-     * @param args program arguments
-     * @throws Exception in case of error
-     */
-
     private static final String OPTION_INPUT_PATH = "i";
     private static final String OPTION_OUTPUT_PATH = "o";
     private static final String OPTION_FORMAT = "f";
@@ -55,9 +53,9 @@ public class FinBenchImporter {
 
         CommandLine parsedOptions = new DefaultParser().parse(cliOption, args);
 
-        if (!parsedOptions.hasOption('i')|| !parsedOptions.hasOption('o')) {
-            System.err.println("No input- or output-path given.");
-            System.err.println("See --help for more infos.");
+        if (!parsedOptions.hasOption(OPTION_INPUT_PATH) || !parsedOptions.hasOption(OPTION_OUTPUT_PATH) ||
+          !parsedOptions.hasOption(OPTION_FORMAT)) {
+            System.err.println("Required argument (-i, -o or -f) not given.");
             return;
         }
 
