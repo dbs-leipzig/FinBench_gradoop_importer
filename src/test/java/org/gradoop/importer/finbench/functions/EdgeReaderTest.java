@@ -71,15 +71,15 @@ public class EdgeReaderTest extends AbstractTestBase {
         assertEquals(1, results.size());
 
         TemporalEdge edge = results.get(0);
-        assertEquals("Transfer", edge.getLabel());
+        assertEquals("transfer", edge.getLabel());
         assertEquals("source-id", edge.getPropertyValue("SourceID").toString());
         assertEquals("target-id", edge.getPropertyValue("TargetID").toString());
-        assertEquals(1000.0, edge.getPropertyValue("Amount").getDouble(), 0);
-        assertEquals("2022-08-05 10:15:30", edge.getPropertyValue("CreateTime").toString());
-        assertEquals("order123", edge.getPropertyValue("OrderNum").toString());
-        assertEquals("payment", edge.getPropertyValue("Comment").toString());
-        assertEquals("card", edge.getPropertyValue("PayType").toString());
-        assertEquals("electronics", edge.getPropertyValue("GoodsType").toString());
+        assertEquals(1000.0, edge.getPropertyValue("amount").getDouble(), 0);
+        assertEquals("2022-08-05 10:15:30", edge.getPropertyValue("timestamp").toString());
+        assertEquals("order123", edge.getPropertyValue("ordernumber").toString());
+        assertEquals("payment", edge.getPropertyValue("comment").toString());
+        assertEquals("card", edge.getPropertyValue("payType").toString());
+        assertEquals("electronics", edge.getPropertyValue("goodsType").toString());
 
         long expectedValidFrom = convertTimeToUnix("2022-08-05 10:15:30");
         assertEquals(expectedValidFrom, edge.getValidFrom().longValue());
@@ -97,7 +97,7 @@ public class EdgeReaderTest extends AbstractTestBase {
     private DataSet<TemporalVertex> createSampleVertices(String id) {
         TemporalVertexFactory vertexFactory = new TemporalVertexFactory();
         Properties properties = Properties.create();
-        properties.set("ID", id);
+        properties.set("id", id);
         TemporalVertex vertex = vertexFactory.initVertex(GradoopId.get(),"Label",properties);
         return env.fromElements(vertex);
     }

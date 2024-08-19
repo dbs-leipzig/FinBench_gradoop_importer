@@ -61,14 +61,14 @@ public class VertexReaderTest extends AbstractTestBase {
 
         TemporalVertex person = results.get(0);
         assertEquals("Person", person.getLabel());
-        assertEquals("123", person.getPropertyValue("ID").toString());
-        assertEquals("John Doe", person.getPropertyValue("Name").toString());
-        assertEquals("false", person.getPropertyValue("Is Blocked").toString());
-        assertEquals("2022-08-05 10:15:30", person.getPropertyValue("CreateTime").toString());
-        assertEquals("Male", person.getPropertyValue("Gender").toString());
-        assertEquals("1990-01-01", person.getPropertyValue("Birthday").toString());
-        assertEquals("USA", person.getPropertyValue("Country").toString());
-        assertEquals("New York", person.getPropertyValue("City").toString());
+        assertEquals(123L, person.getPropertyValue("id").getLong());
+        assertEquals("John Doe", person.getPropertyValue("name").toString());
+        assertEquals("false", person.getPropertyValue("isBlocked").toString());
+        assertEquals("2022-08-05 10:15:30", person.getPropertyValue("createTime").toString());
+        assertEquals("Male", person.getPropertyValue("gender").toString());
+        assertEquals("1990-01-01", person.getPropertyValue("birthday").toString());
+        assertEquals("USA", person.getPropertyValue("country").toString());
+        assertEquals("New York", person.getPropertyValue("city").toString());
     }
 
     private File createSamplePersonCSV() throws IOException {

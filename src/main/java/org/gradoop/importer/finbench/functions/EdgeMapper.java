@@ -37,6 +37,8 @@ public class EdgeMapper implements Serializable {
 
     public static final String SOURCE_ID = "SourceID";
     public static final String TARGET_ID = "TargetID";
+    public static final String TIME_STAMP = "timestamp";
+    public static final String AMOUNT = "amount";
     private TemporalEdgeFactory factory;
 
     public EdgeMapper(TemporalEdgeFactory factory){
@@ -61,15 +63,15 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("Amount", edgeData.f2);
-        edgeProps.set("CreateTime", edgeData.f3);
-        edgeProps.set("OrderNum", edgeData.f4);
-        edgeProps.set("Comment", edgeData.f5);
-        edgeProps.set("PayType", edgeData.f6);
-        edgeProps.set("GoodsType", edgeData.f7);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(AMOUNT, edgeData.f2);
+        edgeProps.set(TIME_STAMP, edgeData.f3);
+        edgeProps.set("ordernumber", edgeData.f4);
+        edgeProps.set("comment", edgeData.f5);
+        edgeProps.set("payType", edgeData.f6);
+        edgeProps.set("goodsType", edgeData.f7);
 
-        TemporalEdge edge = factory.createEdge("Transfer", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("transfer", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f3));
 
@@ -93,12 +95,12 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("InvestmentAmount", edgeData.f2);
-        edgeProps.set("CreateTime", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set("ratio", edgeData.f2);
+        edgeProps.set(TIME_STAMP, edgeData.f3);
 
 
-        TemporalEdge edge = factory.createEdge("Invest", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("invest", sourceId, targetId, edgeProps);
         edge.setValidFrom(convertTimeToUnix(edgeData.f3));
 
         return edge;
@@ -121,10 +123,10 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("CreateTime", edgeData.f2);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(TIME_STAMP, edgeData.f2);
 
-        TemporalEdge edge = factory.createEdge("Own", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("own", sourceId, targetId, edgeProps);
         edge.setValidFrom(convertTimeToUnix(edgeData.f2));
 
         return edge;
@@ -147,11 +149,11 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("Amount", edgeData.f2);
-        edgeProps.set("CreateTime", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(AMOUNT, edgeData.f2);
+        edgeProps.set(TIME_STAMP, edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("Deposit", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("deposit", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f3));
 
@@ -175,11 +177,11 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("Amount", edgeData.f2);
-        edgeProps.set("CreateTime", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(AMOUNT, edgeData.f2);
+        edgeProps.set(TIME_STAMP, edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("Repay", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("repay", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f3));
 
@@ -203,11 +205,11 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("CreateTime", edgeData.f2);
-        edgeProps.set("Location", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(TIME_STAMP, edgeData.f2);
+        edgeProps.set("location", edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("SignIn", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("signIn", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f2));
 
@@ -231,11 +233,11 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("Amount", edgeData.f2);
-        edgeProps.set("CreateTime", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(AMOUNT, edgeData.f2);
+        edgeProps.set(TIME_STAMP, edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("Withdraw", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("withdraw", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f3));
 
@@ -259,11 +261,11 @@ public class EdgeMapper implements Serializable {
         Properties edgeProps = Properties.create();
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
-        edgeProps.set("TargetID", edgeData.f1);
-        edgeProps.set("CreateTime", edgeData.f2);
-        edgeProps.set("Relation", edgeData.f3);
+        edgeProps.set(TARGET_ID, edgeData.f1);
+        edgeProps.set(TIME_STAMP, edgeData.f2);
+        edgeProps.set("relationship", edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("Guarantee", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("guarantee", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f2));
 
@@ -288,10 +290,10 @@ public class EdgeMapper implements Serializable {
 
         edgeProps.set(SOURCE_ID, edgeData.f0);
         edgeProps.set(TARGET_ID, edgeData.f1);
-        edgeProps.set("CreateTime", edgeData.f2);
-        edgeProps.set("Org", edgeData.f3);
+        edgeProps.set(TIME_STAMP, edgeData.f2);
+        edgeProps.set("organization", edgeData.f3);
 
-        TemporalEdge edge = factory.createEdge("Apply", sourceId, targetId, edgeProps);
+        TemporalEdge edge = factory.createEdge("apply", sourceId, targetId, edgeProps);
 
         edge.setValidFrom(convertTimeToUnix(edgeData.f2));
 

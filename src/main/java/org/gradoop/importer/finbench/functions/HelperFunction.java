@@ -24,6 +24,7 @@ import org.gradoop.temporal.model.impl.pojo.TemporalVertex;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class HelperFunction {
 
@@ -31,7 +32,7 @@ public class HelperFunction {
      * Converts a timestamp string to a Unix time in milliseconds.
      *
      * @param timestamp the timestamp string in the format "yyyy-MM-dd HH:mm:ss.SSS" (up to 3 digits of milliseconds).
-     * @return the Unix time in milliseconds.
+     * @return the Unix time in milliseconds in Timezone +1
      * @throws ParseException if the timestamp string cannot be parsed.
      */
     public static long convertTimeToUnix(String timestamp) throws ParseException {
@@ -49,6 +50,7 @@ public class HelperFunction {
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
         Date parsedDate = dateFormat.parse(timestamp);
         return parsedDate.getTime();
     }
@@ -61,7 +63,7 @@ public class HelperFunction {
      */
     public static DataSet<Tuple2<String, GradoopId>>  generateIdPairs(DataSet<TemporalVertex> vertices) {
         return vertices
-                .map(vertex -> new Tuple2<>(vertex.getPropertyValue("ID").toString(), vertex.getId()))
+                .map(vertex -> new Tuple2<>(vertex.getPropertyValue("id").toString(), vertex.getId()))
                 .returns(new TypeHint<Tuple2<String, GradoopId>>() {})
                 .distinct();
     }

@@ -40,10 +40,12 @@ public class HelperFunctionTest extends AbstractTestBase {
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     private ExecutionEnvironment env;
+    private GradoopId gradoopId;
 
     @Before
     public void setup() {
         env = ExecutionEnvironment.createCollectionsEnvironment();
+        gradoopId = GradoopId.get();
     }
 
     @Test
@@ -59,31 +61,21 @@ public class HelperFunctionTest extends AbstractTestBase {
 
         // Assertions
         assertNotNull(results);
-        assertEquals(2, results.size());
-
-        Tuple2<String, GradoopId> firstPair = results.get(0);
-        Tuple2<String, GradoopId> secondPair = results.get(1);
-
-        assertEquals("vertex1", firstPair.f0);
-        assertEquals("vertex2", secondPair.f0);
-
+        assertEquals(1, results.size());
+        Tuple2<String, GradoopId> idPair = results.get(0);
+        assertEquals("123", idPair.f0);
         // Check that GradoopIds are correctly mapped
-        assertNotNull(firstPair.f1);
-        assertNotNull(secondPair.f1);
+        assertEquals(idPair.f1, gradoopId);
     }
 
     private DataSet<TemporalVertex> createSampleVertices() {
         TemporalVertexFactory vertexFactory = new TemporalVertexFactory();
 
         Properties properties1 = Properties.create();
-        properties1.set("ID", "vertex1");
-        TemporalVertex vertex1 = vertexFactory.initVertex( GradoopId.get(), "Label", properties1);
+        properties1.set("id", 123L);
+        TemporalVertex vertex = vertexFactory.initVertex(gradoopId, "label", properties1);
 
-        Properties properties2 = Properties.create();
-        properties2.set("ID", "vertex2");
-        TemporalVertex vertex2 = vertexFactory.initVertex(GradoopId.get(), "Label", properties2);
-
-        return env.fromElements(vertex1, vertex2);
+        return env.fromElements(vertex);
     }
 
     @Test
