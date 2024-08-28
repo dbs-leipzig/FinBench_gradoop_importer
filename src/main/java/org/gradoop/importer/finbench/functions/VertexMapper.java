@@ -63,7 +63,7 @@ public class VertexMapper implements Serializable {
     public CompanyMapper getCompanyMapper(){return companyMapper;}
 
 
-    public static class PersonMapper implements MapFunction<Tuple8<String, String, String, String, String, String, String, String>, TemporalVertex> {
+    public static class PersonMapper implements MapFunction<Tuple8<Long, String, Boolean, String, String, String, String, String>, TemporalVertex> {
 
         private TemporalVertexFactory factory;
 
@@ -79,17 +79,17 @@ public class VertexMapper implements Serializable {
          */
 
         @Override
-        public TemporalVertex map(Tuple8<String, String, String, String, String, String, String, String> record) throws ParseException {
+        public TemporalVertex map(Tuple8<Long, String, Boolean, String, String, String, String, String> record) throws ParseException {
             Map<String, Object> propertiesMap = new HashMap<>();
 
-            propertiesMap.put("ID", record.f0);
-            propertiesMap.put("Name", record.f1);
-            propertiesMap.put("Is Blocked", record.f2);
-            propertiesMap.put("CreateTime", record.f3);
-            propertiesMap.put("Gender", record.f4);
-            propertiesMap.put("Birthday", record.f5);
-            propertiesMap.put("Country", record.f6);
-            propertiesMap.put("City", record.f7);
+            propertiesMap.put("id", record.f0);
+            propertiesMap.put("name", record.f1);
+            propertiesMap.put("isBlocked", record.f2);
+            propertiesMap.put("createTime", record.f3);
+            propertiesMap.put("gender", record.f4);
+            propertiesMap.put("birthday", record.f5);
+            propertiesMap.put("country", record.f6);
+            propertiesMap.put("city", record.f7);
 
 
             GradoopId id = GradoopId.get();
@@ -101,7 +101,7 @@ public class VertexMapper implements Serializable {
         }
     }
 
-    public static class MediumMapper implements MapFunction<Tuple6<String, String, String, String, String, String>, TemporalVertex>{
+    public static class MediumMapper implements MapFunction<Tuple6<Long, String, Boolean, String, String, String>, TemporalVertex>{
         private TemporalVertexFactory factory;
 
         public MediumMapper(TemporalVertexFactory factory) {
@@ -117,14 +117,14 @@ public class VertexMapper implements Serializable {
          */
 
         @Override
-        public TemporalVertex map(Tuple6<String, String, String, String, String, String> record) throws ParseException {
+        public TemporalVertex map(Tuple6<Long, String, Boolean, String, String, String> record) throws ParseException {
             Map<String, Object> propertiesMap = new HashMap<>();
-            propertiesMap.put("ID", record.f0);
-            propertiesMap.put("MediumType", record.f1);
-            propertiesMap.put("IsBlocked", record.f2);
-            propertiesMap.put("CreateTime", record.f3);
-            propertiesMap.put("LastLogin", record.f4);
-            propertiesMap.put("RiskLevel", record.f5);
+            propertiesMap.put("id", record.f0);
+            propertiesMap.put("type", record.f1);
+            propertiesMap.put("isBlocked", record.f2);
+            propertiesMap.put("createTime", record.f3);
+            propertiesMap.put("lastLoginTime", record.f4);
+            propertiesMap.put("riskLevel", record.f5);
 
             Long createTime = convertTimeToUnix(record.f3);
 
@@ -136,7 +136,7 @@ public class VertexMapper implements Serializable {
         }
     }
 
-    public static class AccountMapper implements MapFunction<Tuple10<String, String, Boolean, String, String, String, String, String, String, String>, TemporalVertex> {
+    public static class AccountMapper implements MapFunction<Tuple10<Long, String, Boolean, String, String, String, String, String, String, String>, TemporalVertex> {
         private TemporalVertexFactory factory;
 
         public AccountMapper(TemporalVertexFactory factory) {
@@ -152,18 +152,18 @@ public class VertexMapper implements Serializable {
          */
 
         @Override
-        public TemporalVertex map(Tuple10<String, String, Boolean, String, String, String, String, String, String, String> record) throws ParseException {
+        public TemporalVertex map(Tuple10<Long, String, Boolean, String, String, String, String, String, String, String> record) throws ParseException {
             Map<String, Object> propertiesMap = new HashMap<>();
-            propertiesMap.put("ID", record.f0);
-            propertiesMap.put("CreateTime", record.f1);
-            propertiesMap.put("IsBlocked", record.f2);
-            propertiesMap.put("AccountType", record.f3);
-            propertiesMap.put("Nickname", record.f4);
-            propertiesMap.put("PhoneNumber", record.f5);
-            propertiesMap.put("Email", record.f6);
-            propertiesMap.put("FreqLoginType", record.f7);
-            propertiesMap.put("LastLoginTime", record.f8);
-            propertiesMap.put("AccountLevel", record.f9);
+            propertiesMap.put("id", record.f0);
+            propertiesMap.put("createTime", record.f1);
+            propertiesMap.put("isBlocked", record.f2);
+            propertiesMap.put("type", record.f3);
+            propertiesMap.put("nickname", record.f4);
+            propertiesMap.put("phoneNumber", record.f5);
+            propertiesMap.put("email", record.f6);
+            propertiesMap.put("freqLoginType", record.f7);
+            propertiesMap.put("lastLoginTime", record.f8);
+            propertiesMap.put("accountLevel", record.f9);
 
             Long createTime = convertTimeToUnix(record.f1);
 
@@ -176,7 +176,7 @@ public class VertexMapper implements Serializable {
         }
     }
 
-    public static class LoanMapper implements MapFunction<Tuple6<String, Double, Double, String, String, Double>, TemporalVertex>{
+    public static class LoanMapper implements MapFunction<Tuple6<Long, Double, Double, String, String, Double>, TemporalVertex>{
         private TemporalVertexFactory factory;
 
         public LoanMapper(TemporalVertexFactory factory) {
@@ -192,14 +192,14 @@ public class VertexMapper implements Serializable {
          */
 
         @Override
-        public TemporalVertex map(Tuple6<String, Double, Double, String, String, Double> record) throws ParseException {
+        public TemporalVertex map(Tuple6<Long, Double, Double, String, String, Double> record) throws ParseException {
             Map<String, Object> propertiesMap = new HashMap<>();
-            propertiesMap.put("ID", record.f0);
-            propertiesMap.put("Loan amount", record.f1);
-            propertiesMap.put("Balance", record.f2);
-            propertiesMap.put("Create Time", record.f3);
-            propertiesMap.put("Loan usage", record.f4);
-            propertiesMap.put("Interest Rate", record.f5);
+            propertiesMap.put("id", record.f0);
+            propertiesMap.put("loanAmount", record.f1);
+            propertiesMap.put("balance", record.f2);
+            propertiesMap.put("createTime", record.f3);
+            propertiesMap.put("usage", record.f4);
+            propertiesMap.put("interestRate", record.f5);
             Long createTime = convertTimeToUnix(record.f3);
 
             GradoopId id = GradoopId.get();
@@ -211,7 +211,7 @@ public class VertexMapper implements Serializable {
         }
     }
 
-    public static class CompanyMapper implements MapFunction<Tuple9<String,String,String,String,String,String,String,String,String>, TemporalVertex>{
+    public static class CompanyMapper implements MapFunction<Tuple9<Long,String,Boolean,String,String,String,String,String,String>, TemporalVertex>{
         private TemporalVertexFactory factory;
 
         public CompanyMapper(TemporalVertexFactory factory){
@@ -227,17 +227,17 @@ public class VertexMapper implements Serializable {
          */
 
         @Override
-        public TemporalVertex map(Tuple9<String,String,String,String,String,String,String,String,String> record) throws ParseException {
+        public TemporalVertex map(Tuple9<Long,String,Boolean,String,String,String,String,String,String> record) throws ParseException {
             Map<String, Object> propertiesMap = new HashMap<>();
-            propertiesMap.put("ID", record.f0);
-            propertiesMap.put("Name", record.f1);
-            propertiesMap.put("Create Time", record.f3);
-            propertiesMap.put("Is Blocked", record.f2);
-            propertiesMap.put("Country", record.f4);
-            propertiesMap.put("City", record.f5);
-            propertiesMap.put("Business", record.f6);
-            propertiesMap.put("Description", record.f7);
-            propertiesMap.put("URL", record.f8);
+            propertiesMap.put("id", record.f0);
+            propertiesMap.put("name", record.f1);
+            propertiesMap.put("createTime", record.f3);
+            propertiesMap.put("isBlocked", record.f2);
+            propertiesMap.put("country", record.f4);
+            propertiesMap.put("city", record.f5);
+            propertiesMap.put("business", record.f6);
+            propertiesMap.put("description", record.f7);
+            propertiesMap.put("url", record.f8);
             Long createTime = convertTimeToUnix(record.f3);
 
             GradoopId id = GradoopId.get();

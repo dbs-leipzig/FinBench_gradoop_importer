@@ -59,19 +59,19 @@ public class EdgeMapperTest extends AbstractTestBase {
 
         // Assertions
         assertNotNull(result);
-        assertEquals("Transfer", result.getLabel());
+        assertEquals("transfer", result.getLabel());
         assertEquals(sourceId, result.getSourceId());
         assertEquals(targetId, result.getTargetId());
 
         Properties properties = result.getProperties();
         assertEquals("source-id", properties.get("SourceID").toString());
         assertEquals("target-id", properties.get("TargetID").toString());
-        assertEquals(1000.0, properties.get("Amount").getDouble(), 0);
-        assertEquals("2022-08-05 10:15:30", properties.get("CreateTime").toString());
-        assertEquals("order123", properties.get("OrderNum").toString());
-        assertEquals("payment", properties.get("Comment").toString());
-        assertEquals("card", properties.get("PayType").toString());
-        assertEquals("electronics", properties.get("GoodsType").toString());
+        assertEquals(1000.0, properties.get("amount").getDouble(), 0);
+        assertEquals("2022-08-05 10:15:30", properties.get("timestamp").toString());
+        assertEquals("order123", properties.get("ordernumber").toString());
+        assertEquals("payment", properties.get("comment").toString());
+        assertEquals("card", properties.get("payType").toString());
+        assertEquals("electronics", properties.get("goodsType").toString());
 
         long expectedValidFrom = convertTimeToUnix("2022-08-05 10:15:30");
         assertEquals(expectedValidFrom, result.getValidFrom().longValue());

@@ -53,7 +53,7 @@ public class VertexReader implements Serializable {
         return env.readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class)
+                .types(Long.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class)
                 .map(mappers.getPersonMapper())
                 .returns(TypeInformation.of(new TypeHint<TemporalVertex>() {}));
     }
@@ -69,7 +69,7 @@ public class VertexReader implements Serializable {
         return env.readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, Double.class, Double.class, String.class, String.class, Double.class)
+                .types(Long.class, Double.class, Double.class, String.class, String.class, Double.class)
                 .map(mappers.getLoanMapper())
                 .returns(TypeInformation.of(new TypeHint<TemporalVertex>() {}));
     }
@@ -85,7 +85,7 @@ public class VertexReader implements Serializable {
         return env.readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class)
+                .types(Long.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class)
                 .map(mappers.getCompanyMapper())
                 .returns(TypeInformation.of(new TypeHint<TemporalVertex>() {}));
     }
@@ -101,7 +101,7 @@ public class VertexReader implements Serializable {
         return env.readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class)
+                .types(Long.class, String.class, Boolean.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class)
                 .map(mappers.getAccountMapper())
                 .returns(TypeInformation.of(new TypeHint<TemporalVertex>() {}));
     }
@@ -117,7 +117,7 @@ public class VertexReader implements Serializable {
         return env.readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class, String.class, String.class)
+                .types(Long.class, String.class, Boolean.class, String.class, String.class, String.class)
                 .map(mappers.getMediumMapper())
                 .returns(TypeInformation.of(new TypeHint<TemporalVertex>() {}));
     }
