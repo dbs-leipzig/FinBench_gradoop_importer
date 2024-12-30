@@ -140,9 +140,9 @@ public class EdgeMapper implements Serializable {
      * @throws ParseException if an error occurs during converting DateTime to UNIX
      */
 
-    public TemporalEdge mapDeposit(Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId> data) throws ParseException {
+    public TemporalEdge mapDeposit(Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId> data) throws ParseException {
 
-        Tuple4<String, String, String, String> edgeData = data.f0.f0;
+        Tuple4<String, String, Double, String> edgeData = data.f0.f0;
         GradoopId sourceId = data.f0.f1;
         GradoopId targetId = data.f1;
 
@@ -168,9 +168,9 @@ public class EdgeMapper implements Serializable {
      * @throws ParseException if an error occurs during converting DateTime to UNIX
      */
 
-    public TemporalEdge mapRepay(Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId> data) throws ParseException {
+    public TemporalEdge mapRepay(Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId> data) throws ParseException {
 
-        Tuple4<String, String, String, String> edgeData = data.f0.f0;
+        Tuple4<String, String, Double, String> edgeData = data.f0.f0;
         GradoopId sourceId = data.f0.f1;
         GradoopId targetId = data.f1;
 
@@ -224,9 +224,9 @@ public class EdgeMapper implements Serializable {
      * @throws ParseException if an error occurs during converting DateTime to UNIX
      */
 
-    public TemporalEdge mapWithdraw(Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId> data) throws ParseException {
+    public TemporalEdge mapWithdraw(Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId> data) throws ParseException {
 
-        Tuple4<String, String, String, String> edgeData = data.f0.f0;
+        Tuple4<String, String, Double, String> edgeData = data.f0.f0;
         GradoopId sourceId = data.f0.f1;
         GradoopId targetId = data.f1;
 
