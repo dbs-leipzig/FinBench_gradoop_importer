@@ -163,12 +163,12 @@ public class EdgeReader implements Serializable {
      */
 
     public DataSet<TemporalEdge> readingDeposit(String filePath, DataSet<TemporalVertex> sourceVertices, DataSet<TemporalVertex> targetVertices){
-        DataSet<Tuple4<String, String, String, String>> csvEdgeData = env
+        DataSet<Tuple4<String, String, Double, String>> csvEdgeData = env
                 .readCsvFile(filePath)
                 .ignoreFirstLine()
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class);
+                .types(String.class, String.class, Double.class, String.class);
 
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
@@ -178,12 +178,12 @@ public class EdgeReader implements Serializable {
                 .where(0)
                 .equalTo(0)
                 .with((entry, sourceIds) -> new Tuple2<>(entry, sourceIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple4<String, String, String, String>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple4<String, String, Double, String>, GradoopId>>() {})
                 .join(targetIdPairs)
                 .where("f0.f1")
                 .equalTo(0)
                 .with((joinedTuple, targetIds) -> new Tuple2<>(joinedTuple, targetIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId>>() {})
                 .map(data -> edgeMapper.mapDeposit(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
     }
@@ -198,11 +198,11 @@ public class EdgeReader implements Serializable {
      */
 
     public DataSet<TemporalEdge> readingRepay(String filePath, DataSet<TemporalVertex> sourceVertices, DataSet<TemporalVertex> targetVertices) {
-        DataSet<Tuple4<String, String, String, String>> csvEdgeData = env
+        DataSet<Tuple4<String, String, Double, String>> csvEdgeData = env
                 .readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class);
+                .types(String.class, String.class, Double.class, String.class);
 
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
@@ -212,12 +212,12 @@ public class EdgeReader implements Serializable {
                 .where(0)
                 .equalTo(0)
                 .with((entry, sourceIds) -> new Tuple2<>(entry, sourceIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple4<String, String, String, String>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple4<String, String, Double, String>, GradoopId>>() {})
                 .join(targetIdPairs)
                 .where("f0.f1")
                 .equalTo(0)
                 .with((joinedTuple, targetIds) -> new Tuple2<>(joinedTuple, targetIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId>>() {})
                 .map(data -> edgeMapper.mapRepay(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
     }
@@ -303,11 +303,11 @@ public class EdgeReader implements Serializable {
      */
 
     public DataSet<TemporalEdge> readingWithdraw(String filePath, DataSet<TemporalVertex> sourceVertices, DataSet<TemporalVertex> targetVertices) {
-        DataSet<Tuple4<String, String, String, String>> csvEdgeData = env
+        DataSet<Tuple4<String, String, Double, String>> csvEdgeData = env
                 .readCsvFile(filePath)
                 .ignoreFirstLine()
                 .fieldDelimiter("|")
-                .types(String.class, String.class, String.class, String.class);
+                .types(String.class, String.class, Double.class, String.class);
 
         DataSet<Tuple2<String, GradoopId>> sourceIdPairs = generateIdPairs(sourceVertices);
         DataSet<Tuple2<String, GradoopId>> targetIdPairs = generateIdPairs(targetVertices);
@@ -317,12 +317,12 @@ public class EdgeReader implements Serializable {
                 .where(0)
                 .equalTo(0)
                 .with((entry, sourceIds) -> new Tuple2<>(entry, sourceIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple4<String, String, String, String>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple4<String, String, Double, String>, GradoopId>>() {})
                 .join(targetIdPairs)
                 .where("f0.f1")
                 .equalTo(0)
                 .with((joinedTuple, targetIds) -> new Tuple2<>(joinedTuple, targetIds.f1))
-                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, String, String>, GradoopId>, GradoopId>>() {})
+                .returns(new TypeHint<Tuple2<Tuple2<Tuple4<String, String, Double, String>, GradoopId>, GradoopId>>() {})
                 .map (data -> edgeMapper.mapWithdraw(data))
                 .returns(TypeInformation.of(new TypeHint<TemporalEdge>() {}));
         return edges;
